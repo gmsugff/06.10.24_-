@@ -1,0 +1,156 @@
+#include<iostream> 
+#include <algorithm> 
+#include <memory> 
+#include <vector> 
+using namespace std;
+
+class N {
+public:
+
+    vector<bool>OR(vector<bool>left, vector<bool>right) {
+        vector<bool> result;
+        for (size_t i = 0; i < left.size(); ++i) {
+            if (left.at(i) == 0 && right.at(i) == 0) {
+                result.push_back(false);
+
+
+            }
+            else {
+
+
+                result.push_back(true);
+            }
+        }
+        return result;
+
+    }
+
+    vector<bool>AND(vector<bool>left, vector<bool>right) {
+        vector<bool> result;
+        for (size_t i = 0; i < left.size(); ++i) {
+            if (left.at(i) == 1 && right.at(i) == 1) {
+                result.push_back(false);
+
+
+            }
+            else {
+
+
+                result.push_back(true);
+            }
+            return result;
+        }
+
+    }
+
+    vector<bool>XOR(vector<bool>left, vector<bool>right) {
+        vector<bool> result;
+        for (size_t i = 0; i < left.size(); ++i) {
+            if (left.at(i) == right.at(i)) {
+                result.push_back(false);
+
+
+            }
+            else {
+
+
+                result.push_back(true);
+            }
+
+        }
+        return result;
+    }
+
+
+
+    vector<int> SSL(vector<int> left) {
+        vector<int> tmp(left.size());
+        for (int i = 0; i < left.size() - 1; i++) {
+            tmp[i + 1] = left[i];
+        }
+        tmp[0] = 0;
+
+        return tmp;
+    }
+    vector<int> SSL_k(vector<int> left, int k) {
+        if (k >= left.size()) {
+            return left;
+        }
+
+        vector<int> tmp(left.size());
+        for (int i = k; i < left.size(); i++) {
+            tmp[i] = left[i - k];
+        }
+        for (int i = 0; i < k; i++) {
+            tmp[i] = 0;
+        }
+
+        return tmp;
+    }
+
+    vector<int> SRL(vector<int> left) {
+        vector<int> tmp(left.size());
+        for (int i = 0; i < left.size() - 1; i++) {
+            tmp[i] = left[i + 1];
+        }
+        tmp[left.size() - 1] = 0;
+
+        return tmp;
+    }
+    vector<int> SRL_k(vector<int> left, int k) {
+        if (k >= left.size()) {
+            return left;
+        }
+
+        vector<int> tmp(left.size());
+        for (int i = 0; i < left.size() - k; i++) {
+            tmp[i] = left[i];
+        }
+        for (int i = left.size() - k; i < left.size(); i++) {
+            tmp[i] = 0;
+        }
+
+        return tmp;
+    }
+    void print_bool(vector <bool>a) {
+        for (int i = 0; i < a.size(); i++) {
+            cout << a[i] << " ";
+      }
+        cout << endl;
+    }
+    void print_int(vector <int>a) {
+        for (int i = 0; i < a.size(); i++) {
+            cout << a[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+
+int main() {
+
+    N n;
+    vector <bool> a{ 0,1,0,1,0,0,0,0 };
+    vector <bool> b{ 1,1,0,1,0,1,0,0 };
+    vector <int> f{ 1,1,0,1,0,1,0,0 };
+    try {
+cout << "OR:";
+    n.print_bool(n.OR(a, b));
+    cout << "AND:";
+    n.print_bool(n.AND(a, b));
+    cout << "XOR";
+    n.print_bool(n.XOR(a, b));
+    cout << "SRL:";
+    n.print_int(n.SRL(f));
+    cout << "SRL_k:";
+    n.print_int(n.SRL_k(f, 3));
+    cout << "SSL:";
+    n.print_int (n.SSL(f));
+    cout << "SSL_k:";
+    n.print_int(n.SSL_k(f, 3));
+    }
+    catch(const std::exception& e){
+        cout<<"error"<< e.what() << endl;
+    }
+    
+}
